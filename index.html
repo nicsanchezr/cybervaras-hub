@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberVaras - Proyectos, Hacking Ético & Desafíos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: #111;
+            --text-main: #0f0;
+            --accent: #00ff41; /* Matrix Green */
+            --accent-dim: #008f11;
+            --linkedin: #0077b5;
+            --linkedin-dark: #004471;
+            --white: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--white);
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header / Hero Section */
+        header {
+            height: 90vh; /* Un poco más alto para acomodar los botones */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #000;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        #matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.25;
+        }
+
+        .header-content {
+            z-index: 1;
+            position: relative;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border: 2px dashed var(--accent-dim);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.2rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 0px #003b00;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-dim);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .typewriter {
+            border-right: 10px solid var(--accent);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink 0.75s step-end infinite;
+            font-family: 'VT323', monospace;
+            font-size: 1.8rem;
+            color: #fff;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        /* Contenedor de Botones */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* Estilo Base Botones Retro */
+        .btn {
+            display: inline-block;
+            padding: 15px 20px;
+            border: 4px solid var(--accent);
+            background-color: #000;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0px var(--accent-dim);
+            position: relative;
+            top: 0;
+            left: 0;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent);
+            color: #000;
+            box-shadow: 0px 0px 0px var(--accent-dim);
+            top: 4px;
+            left: 4px;
+            cursor: pointer;
+        }
+
+        /* Variación LinkedIn */
+        .btn-linkedin {
+            border-color: var(--linkedin);
+            color: var(--linkedin);
+            box-shadow: 4px 4px 0px var(--linkedin-dark);
+        }
+        .btn-linkedin:hover {
+            background-color: var(--linkedin);
+            color: #fff;
+            box-shadow: 0px 0px 0px;
+        }
+
+        /* Variación Start Game */
+        .btn-start {
+            border-color: #fff;
+            color: #fff;
+            box-shadow: 4px 4px 0px #666;
+        }
+        .btn-start:hover {
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0px 0px 0px;
+        }
+
+        /* Secciones */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--white);
+            border-left: 10px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border: 2px solid #333;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-dim);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            line-height: 1.6;
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card p {
+            font-size: 1.4rem;
+            color: #ccc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #000;
+            border-top: 4px solid var(--accent-dim);
+            color: #666;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+        }
+
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; }
+            .typewriter { font-size: 1.2rem; }
+            .btn { display: block; width: 100%; text-align: center; margin: 10px 0; }
+            .buttons-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <canvas id="matrix-canvas"></canvas>
+        
+        <div class="header-content">
+            <h1 id="main-title">CYBERVARAS</h1>
+            <p class="subtitle">Investigación <span style="color: #fff;">//</span> Educación <span style="color: #fff;">//</span> CTF</p>
+            
+            <div style="margin-bottom: 30px; min-height: 30px;">
+                <span id="typing-text" class="typewriter"></span>
+            </div>
+            
+            <div class="buttons-container">
+                <a href="https://github.com/nicsanchezr" target="_blank" class="btn">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                
+                <a href="https://www.linkedin.com/in/nicolas-sanchez-rodriguez-76827541/" target="_blank" class="btn btn-linkedin">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+
+                <a href="#projects" class="btn btn-start">
+                    <i class="fas fa-gamepad"></i> Start Game
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="projects">
+        <h2><i class="fas fa-floppy-disk"></i> SELECT_MISSION:</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-trophy"></i>
+                <h3>LVL 5: Campeonato 2025</h3>
+                <p>Archivo histórico del Quinto Campeonato de Ciberseguridad. Resultados y desafíos.</p>
+                <br>
+                <p style="color: yellow; font-size: 1rem;">STATUS: COMPLETED</p>
+                <br>
+                <a href="https://2025.cybervaras.xyz" class="btn" style="width: 100%; text-align: center; padding: 15px;">
+                    LOAD DATA
+                </a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-code"></i>
+                <h3>Source Code</h3>
+                <p>Repositorio abierto con el código fuente de los desafíos Web, Forense y Crypto.</p>
+                <br>
+                <p style="color: var(--accent); font-size: 1rem;">ACCESS: GRANTED</p>
+                <br>
+                <a href="https://github.com/nicsanchezr/CyberVaras-2025-Archive" target="_blank" class="btn" style="width: 100%; text-align: center; padding: 15px;">
+                    GIT PULL
+                </a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-server"></i>
+                <h3>Server Ops</h3>
+                <p>Despliegues automatizados de plataformas CTFd, laboratorios Docker y servidores Linux.</p>
+                <br>
+                <p style="color: cyan; font-size: 1rem;">SYSTEM: ONLINE</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2><i class="fas fa-user-secret"></i> PLAYER_INFO:</h2>
+        <div style="background: var(--card-bg); padding: 30px; border: 2px solid #333; position: relative;">
+            <p>
+                > <strong>CyberVaras</strong> es una iniciativa educativa.<br>
+                > Objetivo: Fomentar el aprendizaje práctico de ciberseguridad.<br>
+                > Admin: <strong>Profesor Nicolás Sánchez</strong>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>INSERT COIN TO CONTINUE...</p>
+        <br>
+        <p>&copy; 2025 CyberVaras.xyz</p>
+    </footer>
+
+    <script>
+        /* --- EFECTO DE MÁQUINA DE ESCRIBIR --- */
+        const text = "root@cybervaras:~$ ./init_system.sh_";
+        const element = document.getElementById("typing-text");
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        /* --- EFECTO MATRIX RAIN --- */
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+
+        for( let x = 0; x < columns; x++ ) {
+            rainDrops[x] = 1;
+        }
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0'; 
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+
+                if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+
+        window.onload = () => {
+            typeWriter();
+            setInterval(draw, 30);
+        };
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+</body>
+</html>
