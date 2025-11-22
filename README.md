@@ -1,4 +1,4 @@
-# 🌐 CyberVaras - Security Research Hub
+# 🌐 CyberVaras - Proyectos, Hacking Ético & Desafíos
 
 ![Status](https://img.shields.io/badge/Status-Active-success)
 ![Tech](https://img.shields.io/badge/HTML5-CSS3-orange)
